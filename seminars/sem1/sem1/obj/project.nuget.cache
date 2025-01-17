@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "cX6RYLQZYb5W2gdi/BLuMO1tjtj0Pvts9n4JLUY6Rs2InOz3Sa8v6+CWAbhZK50ZiWKCQMSQPv1F3QPJ4hASJw==",
+  "success": true,
+  "projectFilePath": "/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/sem1.csproj",
+  "expectedPackageFiles": [
+    "/Users/vovababuskin/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.31/microsoft.aspnetcore.app.ref.6.0.31.nupkg.sha512",
+    "/Users/vovababuskin/.nuget/packages/microsoft.netcore.app.host.osx-arm64/6.0.31/microsoft.netcore.app.host.osx-arm64.6.0.31.nupkg.sha512",
+    "/Users/vovababuskin/.nuget/packages/microsoft.netcore.app.ref/6.0.31/microsoft.netcore.app.ref.6.0.31.nupkg.sha512"
+  ],
+  "logs": []
+}
