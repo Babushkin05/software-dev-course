@@ -1,0 +1,15 @@
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/obj/Debug/net6.0/sem1.csproj.AssemblyReference.cache
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/obj/Debug/net6.0/sem1.GeneratedMSBuildEditorConfig.editorconfig
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/obj/Debug/net6.0/sem1.AssemblyInfoInputs.cache
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/obj/Debug/net6.0/sem1.AssemblyInfo.cs
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/obj/Debug/net6.0/sem1.csproj.CoreCompileInputs.cache
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/bin/Debug/net6.0/sem1
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/bin/Debug/net6.0/sem1.deps.json
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/bin/Debug/net6.0/sem1.runtimeconfig.json
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/bin/Debug/net6.0/sem1.dll
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/bin/Debug/net6.0/sem1.pdb
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/obj/Debug/net6.0/sem1.dll
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/obj/Debug/net6.0/refint/sem1.dll
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/obj/Debug/net6.0/sem1.pdb
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/obj/Debug/net6.0/sem1.genruntimeconfig.cache
+/Users/vovababuskin/Documents/study/KPO/seminars/sem1/sem1/obj/Debug/net6.0/ref/sem1.dll

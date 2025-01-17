@@ -19,6 +19,11 @@ namespace sem1
         private static readonly Random _random = new();
 
         private static int cars_number = 0;
-	}
+
+        public override string ToString()
+        {
+			return $"Car number {Number}, Engine size {Engine.Size}";
+        }
+    }
 }
 
