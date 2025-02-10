@@ -1,6 +1,6 @@
 namespace zoo_erp
 {
-    internal interface IInventory
+    public abstract class Thing : IInventory
     {
         public int ItemId { get; init; }
     }

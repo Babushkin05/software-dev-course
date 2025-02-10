@@ -8,6 +8,6 @@ namespace zoo_erp
 
         public byte Health {get; private protected set; }
 
-        public int Food { get; set; }
+        public int Food { get; init; }
     }
 }
