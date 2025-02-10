@@ -1,0 +1,15 @@
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/bin/Debug/net8.0/zoo-erp
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/bin/Debug/net8.0/zoo-erp.deps.json
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/bin/Debug/net8.0/zoo-erp.runtimeconfig.json
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/bin/Debug/net8.0/zoo-erp.dll
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/bin/Debug/net8.0/zoo-erp.pdb
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.GeneratedMSBuildEditorConfig.editorconfig
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.AssemblyInfoInputs.cache
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.AssemblyInfo.cs
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.csproj.CoreCompileInputs.cache
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.sourcelink.json
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.dll
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/refint/zoo-erp.dll
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.pdb
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.genruntimeconfig.cache
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/ref/zoo-erp.dll
