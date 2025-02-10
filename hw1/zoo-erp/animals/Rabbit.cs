@@ -9,5 +9,10 @@ namespace zoo_erp
             this.Kindness = kindness;
             this.Health = health;
         }
+
+        public override string ToString()
+        {
+            return "Rabbit " + base.ToString();
+        }
     }
 }

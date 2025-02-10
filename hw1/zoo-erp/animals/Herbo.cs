@@ -23,5 +23,10 @@ namespace zoo_erp
         public bool IsInterqactive(){
             return Kindness > INTERACT_THRESHOLD;
         }
+
+        public override string ToString()
+        {
+            return base.ToString() + $", kindness is {Kindness}";
+        }
     }
 }

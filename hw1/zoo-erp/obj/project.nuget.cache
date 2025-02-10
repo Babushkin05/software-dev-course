@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "FSBBpvAmBBQ=",
+  "dgSpecHash": "6aABswy7kfA=",
   "success": true,
   "projectFilePath": "/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/zoo-erp.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/vovababuskin/.nuget/packages/microsoft.extensions.dependencyinjection/9.0.1/microsoft.extensions.dependencyinjection.9.0.1.nupkg.sha512",
+    "/Users/vovababuskin/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/9.0.1/microsoft.extensions.dependencyinjection.abstractions.9.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

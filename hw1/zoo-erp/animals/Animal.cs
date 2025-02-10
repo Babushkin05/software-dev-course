@@ -9,5 +9,10 @@ namespace zoo_erp
         public byte Health {get; private protected set; }
 
         public int Food { get; init; }
+
+        public override string ToString()
+        {
+            return $"{Name} with AnimalId={AnimalId} need {Food} kg food every day, health is {Health}";
+        }
     }
 }

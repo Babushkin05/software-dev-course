@@ -1,18 +1,17 @@
 namespace zoo_erp
 {
-    public class Monkey : Herbo
+    public class Tiger : Predator
     {
-        Monkey(string name, int food, byte kindness, byte health)
+        Tiger(string name, int food, byte health)
         {
             this.Name = name;
             this.Food = food;
-            this.Kindness = kindness;
             this.Health = health;
         }
 
         public override string ToString()
         {
-            return "Monkey " + base.ToString();
+            return "Tiger " + base.ToString();
         }
     }
 }
