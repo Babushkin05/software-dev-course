@@ -8,5 +8,10 @@ namespace zoo_erp
         {
             tableInfo = table;
         }
+
+        public override string ToString()
+        {
+            return base.ToString() + $" table {tableInfo}";
+        }
     }
 }

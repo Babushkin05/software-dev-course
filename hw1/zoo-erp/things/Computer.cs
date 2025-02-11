@@ -8,5 +8,10 @@ namespace zoo_erp
         {
             computerInfo = computer;
         }
+
+        public override string ToString()
+        {
+            return base.ToString() + $" Computer {computerInfo}";
+        }
     }
 }

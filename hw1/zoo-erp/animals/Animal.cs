@@ -2,8 +2,6 @@ namespace zoo_erp
 {
     public abstract class Animal : IAlive
     {
-        public uint AnimalId { get; private protected set; }
-
         public string? Name { get; private protected set; }
 
         public byte Health {get; private protected set; }
@@ -12,7 +10,7 @@ namespace zoo_erp
 
         public override string ToString()
         {
-            return $"{Name} with AnimalId={AnimalId} need {Food} kg food every day, health is {Health}";
+            return $"{Name} need {Food} kg food every day, health is {Health}";
         }
     }
 }
