@@ -1,20 +1,17 @@
 namespace zoo_erp
 {
-    public class ZooAnimal
-    {
-        public Animal animal;
+    internal class ZooAnimal : ZooOwnership
+    {  
+        public Animal animal { get; private set; }
 
-        public int animalId;
-
-        public ZooAnimal(Animal animal_, int id)
+        internal ZooAnimal(Animal animal_, int id, int zooKey) : base(zooKey, id)
         {
             animal = animal_;
-            animalId = id;
         }
 
         public override string ToString()
         {
-            return $"animalId={animalId}: " + animal.ToString();
+            return base.ToString() + animal.ToString();
         }
     }
 }

@@ -1,12 +1,10 @@
+using System.CodeDom.Compiler;
+using System.Data.Common;
+
 namespace zoo_erp
 {
-    public abstract class Thing : IInventory
+    public abstract class Thing 
     {
-        public int ItemId { get; init; }
-
-        public override string ToString()
-        {
-            return $"ItemId={ItemId}: ";
-        }
+        // this layer for future extensions
     }
 }
