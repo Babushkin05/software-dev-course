@@ -1,6 +1,7 @@
 using System.Collections;
 using System;
 using System.Runtime.InteropServices.Marshalling;
+using System.Security.Cryptography.X509Certificates;
 
 namespace zoo_erp
 {
@@ -9,33 +10,70 @@ namespace zoo_erp
         private int _zooKey;
         private IClinic _clinic;
 
+        private int curId = 0;
         private Dictionary<int, ZooAnimal> animals = new Dictionary<int, ZooAnimal>();
 
         private Dictionary<int, ZooInventar> things = new Dictionary<int, ZooInventar>();
 
-        Zoo(IClinic clinic)
+        public Zoo(IClinic clinic)
         {
             _clinic = clinic;
             Random rnd = new Random();
             _zooKey = rnd.Next();
         }
 
-        public bool TryAddAnimal(Animal animal)
+        public List<Herbo> getKindAnimals()
+        {
+            List<Herbo> kinds = new List<Herbo>();
+
+            for (int i = 0; i < curId; ++i)
+            {
+                if (animals.ContainsKey(i) && animals[i].animal is Herbo)
+                {
+                    Herbo herboAnimal = animals[i].animal as Herbo;
+
+                    if (herboAnimal.IsInterqactive())
+                    {
+                        kinds.Add(herboAnimal);
+                    }
+                }
+            }
+
+            return kinds;
+        }
+
+        public int CountFoodCompsuntion()
+        {
+            int res = 0;
+            for(int i = 0; i < curId; ++i)
+            {
+                if(animals.ContainsKey(i)){
+                    res += animals[i].animal.Food;
+                }
+            }
+
+            return res;
+        }
+
+        public int AddAnimal(Animal animal)
         {
             if (_clinic.IsHealthy(animal))
             {
-                ZooAnimal zooAnimal = new ZooAnimal(animal, animals.Count, _zooKey);
-                animals[zooAnimal.Id] = zooAnimal;
-                return true;
+                ZooAnimal zooAnimal = new ZooAnimal(animal, curId, _zooKey);
+                animals[curId] = zooAnimal;
+                ++curId;
+                return curId - 1;
             }
             else
-                return false;
+                return -1;
         }
 
-        public void AddItem(Thing thing)
+        public int AddItem(Thing thing)
         {
-            ZooInventar zooInventar = new ZooInventar(thing, things.Count, _zooKey);
-            things[zooInventar.Id] = zooInventar;
+            ZooInventar zooInventar = new ZooInventar(thing, curId, _zooKey);
+            things[curId] = zooInventar;
+            ++curId;
+            return curId - 1;
         }
 
         public Animal getAnimalById(int id)
@@ -61,8 +99,5 @@ namespace zoo_erp
             things.Remove(id);
             return thing;
         }
-
-
-        
     }
 }

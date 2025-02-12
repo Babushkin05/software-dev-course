@@ -2,7 +2,7 @@ namespace zoo_erp
 {
     public class Wolf : Predator
     {
-        Wolf(string name, int food, byte health)
+        public Wolf(string name, int food, byte health)
         {
             this.Name = name;
             this.Food = food;

@@ -14,3 +14,6 @@
 /Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.genruntimeconfig.cache
 /Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/ref/zoo-erp.dll
 /Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.csproj.AssemblyReference.cache
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/vovababuskin/Documents/study/KPO/hw1/zoo-erp/obj/Debug/net8.0/zoo-erp.csproj.Up2Date
