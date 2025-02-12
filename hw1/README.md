@@ -79,3 +79,5 @@ internal static void Main(){
 Дополнение я реализовал проект тестирующий мою программу на базе NuGet пакета ```XUnit```.
 
 Тесты в папке [XUnitTester](https://github.com/Babushkin05/software-dev-course/tree/main/hw1/XUnitTester)
+
+В нем 11 тестов, покрывающих всю основную бизнес-логику программы, описанную в функциональных требованиях.
