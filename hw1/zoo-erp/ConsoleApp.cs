@@ -3,6 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace zoo_erp
 {
+    /// <summary>
+    /// Class for console interface of ERP
+    /// </summary>
     public sealed partial class ConsoleApp
     {
         private Zoo _zoo;
@@ -12,9 +15,14 @@ namespace zoo_erp
             _zoo = zoo;
         }
 
+        /// <summary>
+        /// Function for run console app
+        /// </summary>
         public void Run()
         {
             Console.WriteLine("Welcome to Moscow Zoo ERP!");
+            Console.WriteLine("\nType something to continue :: ");
+            Console.ReadKey();
 
             while (true)
             {
@@ -42,6 +50,9 @@ namespace zoo_erp
             }
         }
 
+        /// <summary>
+        /// Method for adding animals to zoo
+        /// </summary>
         private void AddAnimal()
         {
             int animalType = Slider("What animal you want to add?",
@@ -112,6 +123,9 @@ namespace zoo_erp
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Method to print summar consumption
+        /// </summary>
         private void PrintConsumprion(){
             Console.WriteLine($"\nTotal food consumtion is {_zoo.CountFoodCompsuntion()} kg of food");
 
@@ -119,6 +133,9 @@ namespace zoo_erp
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Method for printing kind animals
+        /// </summary>
         private void PrintKindAnimals(){
             List<Herbo> kinds = _zoo.getKindAnimals();
             Console.WriteLine($"\nThere is {kinds.Count} kind herbos :: ");

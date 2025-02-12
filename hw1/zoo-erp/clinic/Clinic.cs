@@ -2,8 +2,11 @@ using System.Reflection.Metadata;
 
 namespace zoo_erp
 {
-    internal class Clinic : IClinic
+    public class Clinic : IClinic
     {
+        /// <summary>
+        /// Threshold of healty
+        /// </summary>
         private const byte HEALTH_THRESHOLD = 50;
 
         public bool IsHealthy(Animal animal){

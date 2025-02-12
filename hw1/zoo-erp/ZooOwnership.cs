@@ -1,12 +1,19 @@
 namespace zoo_erp
 {
+    /// <summary>
+    /// Wrapper for ownership for zoo uses
+    /// </summary>
     internal class ZooOwnership
     {
+        /// <summary>
+        /// Secret Key of owner
+        /// </summary>
         private int _zooKey;
 
-        private const int ITEM_HAVE_NO_OWNER = -1;
-
-
+        /// <summary>
+        /// Id in zoo ownership
+        /// </summary>
+        /// <value></value>
         public int Id { get; private set; }
 
         public ZooOwnership(int zooKey, int id)
