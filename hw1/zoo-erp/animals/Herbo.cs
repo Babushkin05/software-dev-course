@@ -6,7 +6,7 @@ namespace zoo_erp
     {
         private const int INTERACT_THRESHOLD = 5;
 
-        private byte _kindness; 
+        private byte _kindness;
         public byte Kindness
         {
             get { return _kindness; }
@@ -16,11 +16,12 @@ namespace zoo_erp
                 {
                     throw new ArgumentException("Kindness value must be between 0 and 10.");
                 }
-                _kindness = value; 
+                _kindness = value;
             }
-}
+        }
 
-        public bool IsInterqactive(){
+        public bool IsInterqactive()
+        {
             return Kindness > INTERACT_THRESHOLD;
         }
 

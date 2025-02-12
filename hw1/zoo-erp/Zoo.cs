@@ -68,7 +68,7 @@ namespace zoo_erp
                 return -1;
         }
 
-        public int AddItem(Thing thing)
+        public int AddThing(Thing thing)
         {
             ZooInventar zooInventar = new ZooInventar(thing, curId, _zooKey);
             things[curId] = zooInventar;

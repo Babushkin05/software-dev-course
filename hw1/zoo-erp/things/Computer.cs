@@ -4,7 +4,7 @@ namespace zoo_erp
     {
         public string? computerInfo;
 
-        Computer(string? computer)
+        public Computer(string? computer)
         {
             computerInfo = computer;
         }

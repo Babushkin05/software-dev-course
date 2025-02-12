@@ -4,7 +4,7 @@ namespace zoo_erp
     {
         public string? tableInfo;
 
-        Table(string? table)
+        public Table(string? table)
         {
             tableInfo = table;
         }
