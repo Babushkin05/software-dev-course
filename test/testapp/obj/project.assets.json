@@ -1,11 +1,11 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net7.0": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net7.0": []
   },
   "packageFolders": {
     "/Users/vovababuskin/.nuget/packages/": {}
@@ -13,24 +13,24 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/vovababuskin/Documents/study/KPO/kr1/HseBank/HseBank.csproj",
-      "projectName": "HseBank",
-      "projectPath": "/Users/vovababuskin/Documents/study/KPO/kr1/HseBank/HseBank.csproj",
+      "projectUniqueName": "/Users/vovababuskin/Documents/study/KPO/test/testapp/testapp.csproj",
+      "projectName": "testapp",
+      "projectPath": "/Users/vovababuskin/Documents/study/KPO/test/testapp/testapp.csproj",
       "packagesPath": "/Users/vovababuskin/.nuget/packages/",
-      "outputPath": "/Users/vovababuskin/Documents/study/KPO/kr1/HseBank/obj/",
+      "outputPath": "/Users/vovababuskin/Documents/study/KPO/test/testapp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/vovababuskin/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net8.0"
+        "net7.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "projectReferences": {}
         }
       },
@@ -38,16 +38,11 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
-      "net8.0": {
-        "targetAlias": "net8.0",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "imports": [
           "net461",
           "net462",
@@ -64,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.405/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.317/RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,4 +1,30 @@
 ﻿<Properties StartupConfiguration="{17777E66-5BDE-4B32-9961-85DDF7C64A4F}|Default">
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.sem1 FirstBuild="True" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.sem1 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="sem1/README.md">
+    <Files>
+      <File FileName="sem1/Program.cs" Line="20" Column="1" />
+      <File FileName="sem1/README (1).md" Line="40" Column="33" />
+      <File FileName="sem1/Engine.cs" Line="9" Column="1" />
+      <File FileName="sem1/Car.cs" Line="25" Column="61" />
+      <File FileName="sem1/Customer.cs" Line="21" Column="1" />
+      <File FileName="sem1/FactoryAF.cs" Line="10" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="sem1" expanded="True">
+            <Node name="sem1">
+              <Node name="README.md" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>
