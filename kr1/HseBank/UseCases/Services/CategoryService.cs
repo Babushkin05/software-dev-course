@@ -1,6 +1,16 @@
 using HseBank.Domain;
 namespace HseBank.UseCases;
-public class CategoryService
+
+public interface ICategoryService
+{
+    void CreateCategory(Category category);
+    void AddCategory(Category category);
+    void DeleteCategory(int id);
+    Category GetCategory(int id);
+    IEnumerable<Category> GetAllCategories();
+}
+
+public class CategoryService : ICategoryService
 {
     private readonly List<Category> _categories = new();
 

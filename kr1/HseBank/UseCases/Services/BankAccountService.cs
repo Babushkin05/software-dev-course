@@ -1,6 +1,16 @@
 using HseBank.Domain;
 namespace HseBank.UseCases;
-public class BankAccountService
+
+public interface IBankAccountService
+{
+    void CreateBankAccount(BankAccount account);
+    void DeleteBankAccount(int id);
+    BankAccount GetBankAccount(int id);
+    IEnumerable<BankAccount> GetAllBankAccounts();
+}
+
+
+public class BankAccountService : IBankAccountService
 {
     private readonly List<BankAccount> _bankAccounts = new();
 

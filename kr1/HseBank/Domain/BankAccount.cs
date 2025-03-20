@@ -21,6 +21,7 @@ namespace HseBank.Domain
             Id = id_;
             Name = name_;
             Balance = 0;
+            operationsStory = new List<Operation>();
         }
 
         public List<Operation> GetHistory(){

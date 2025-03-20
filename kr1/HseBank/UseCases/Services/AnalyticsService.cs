@@ -1,6 +1,13 @@
 using HseBank.Domain;
 namespace HseBank.UseCases;
 
+public interface IAnalyticsService
+{
+    public decimal CalculateBalanceDifference(DateTime startDate, DateTime endDate);
+
+    public Dictionary<string, long> GroupOperationsByCategory(DateTime startDate, DateTime endDate);
+}
+
 public class AnalyticsService
 {
     private readonly OperationService _operationService;
