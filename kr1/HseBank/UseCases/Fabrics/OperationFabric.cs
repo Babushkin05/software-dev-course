@@ -1,4 +1,4 @@
-using HseBank.Entities;
+using HseBank.Domain;
 
 namespace HseBank.UseCases
 {
