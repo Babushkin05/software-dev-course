@@ -1,6 +1,18 @@
 using HseBank.Domain;
 namespace HseBank.UseCases;
-public class OperationService
+
+public interface IOperationService
+{
+    public void CreateOperation(Operation operation);
+
+    public void DeleteOperation(UInt128 id);
+
+    public Operation GetOperation(UInt128 id);
+
+   public IEnumerable<Operation> GetAllOperations();
+}
+
+public class OperationService : IOperationService
 {
     private readonly List<Operation> _operations = new();
 
