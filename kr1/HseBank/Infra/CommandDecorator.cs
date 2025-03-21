@@ -12,11 +12,12 @@ public class TimedCommandDecorator : ICommand
         _command = command;
     }
 
-    public void Execute()
+    public object Execute()
     {
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-        _command.Execute();
+        object res = _command.Execute();
         stopwatch.Stop();
         Console.WriteLine($"Command executed in {stopwatch.ElapsedMilliseconds} ms.");
+        return res;
     }
 }
