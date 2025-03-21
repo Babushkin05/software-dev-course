@@ -24,18 +24,29 @@ namespace HseBank.Domain
             operationsStory = new List<Operation>();
         }
 
-        public List<Operation> GetHistory(){
+        public List<Operation> GetHistory()
+        {
             return operationsStory;
         }
 
-        public void AddOperation(Operation operation){
-            if(operation.Type == OperationType.Income){
+        public void AddOperation(Operation operation)
+        {
+            if (operation.Type == OperationType.Income)
+            {
                 Balance += (int)operation.Amount;
-            } 
-            else{
+            }
+            else
+            {
                 Balance -= (int)operation.Amount;
             }
             operationsStory.Add(operation);
         }
+
+        public void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+
     }
 }
