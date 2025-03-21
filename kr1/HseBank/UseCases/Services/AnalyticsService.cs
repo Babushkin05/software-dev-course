@@ -8,7 +8,7 @@ public interface IAnalyticsService
     public Dictionary<string, long> GroupOperationsByCategory(DateTime startDate, DateTime endDate);
 }
 
-public class AnalyticsService
+public class AnalyticsService : IAnalyticsService
 {
     private readonly OperationService _operationService;
 

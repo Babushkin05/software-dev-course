@@ -20,6 +20,5 @@ public class YamlExportVisitor : IVisitor
         var serializer = new SerializerBuilder().Build();
         string yaml = serializer.Serialize(_accounts);
         File.WriteAllText(filePath, yaml);
-        Console.WriteLine($"Data exported to YAML file: {filePath}");
     }
 }
