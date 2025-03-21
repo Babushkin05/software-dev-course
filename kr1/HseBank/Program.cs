@@ -1,2 +1,2 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿// no interface implemented
+Console.WriteLine("There is no user interface");

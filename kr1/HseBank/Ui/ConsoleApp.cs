@@ -42,7 +42,9 @@ public partial class ConsoleApp {
 
 
         while(true){
-            int choosen = Slider("What you want?", new string[]{"Analitics", "Bank Account", "Category", "Operationj"});
+            int choosen = Slider("What you want?", new string[]{"Analitics", "Bank Account", "Category", "Operation", "Exit"});
+
+            
         }
     }
 }
