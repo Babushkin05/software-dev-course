@@ -1,6 +1,10 @@
 package domain
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type HealthStatus string
 type Gender string
@@ -22,6 +26,23 @@ type Animal struct {
 	FavoriteFood     string
 	Health           HealthStatus
 	CurrentEnclosure string
+}
+
+func NewAnimal(name, species string, birthDate time.Time, gender Gender, favoriteFood string) (*Animal, error) {
+	if name == "" || species == "" {
+		return nil, ErrNameAndSpeciesRequired
+	}
+
+	animal := &Animal{
+		ID:           uuid.New().String(),
+		Name:         name,
+		Species:      species,
+		BirthDate:    birthDate,
+		Gender:       gender,
+		FavoriteFood: favoriteFood,
+		Health:       Healthy,
+	}
+	return animal, nil
 }
 
 func (a *Animal) Feed() {
