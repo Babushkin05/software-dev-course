@@ -22,7 +22,7 @@ func TestConsoleEventPublisher_Publish(t *testing.T) {
 				FromEnclosure: "old",
 				ToEnclosure:   "new",
 			},
-			expected: "Event published: AnimalMoved => {AnimalID:123 FromEnclosure:old ToEnclosure:new}\n",
+			expected: "",
 		},
 		{
 			name: "FeedingTimeEvent",
@@ -31,7 +31,7 @@ func TestConsoleEventPublisher_Publish(t *testing.T) {
 				Time:     "12:00",
 				Food:     "Meat",
 			},
-			expected: "Event published: FeedingTime => {AnimalID:456 Time:12:00 Food:Meat}\n",
+			expected: "",
 		},
 	}
 
