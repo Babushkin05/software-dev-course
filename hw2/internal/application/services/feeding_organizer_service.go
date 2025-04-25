@@ -39,3 +39,7 @@ func (f *FeedingOrganizerService) NotifyFeedingDue() {
 		}
 	}
 }
+
+func (s *FeedingOrganizerService) GetAllSchedules() ([]*domain.FeedingSchedule, error) {
+	return s.schedules.ListAll()
+}
