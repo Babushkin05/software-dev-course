@@ -10,9 +10,19 @@ import (
 
 // @title Zoo Management API
 // @version 1.0
-// @description Система управления зоопарком.
+// @description API для управления зоопарком: животные, вольеры, расписание кормления и статистика.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.url http://example.com/support
+// @contact.email support@zoo.example.com
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
 // @host localhost:8080
 // @BasePath /api
+// @schemes http
 func main() {
 	// Infrastructure (In-Memory + Console Publisher)
 	animalRepo := storage.NewInMemoryAnimalRepo()

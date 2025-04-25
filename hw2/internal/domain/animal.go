@@ -20,7 +20,7 @@ const (
 type Animal struct {
 	ID               string       `json:"id" example:"a1b2c3d4"`
 	Name             string       `json:"name" example:"Симба"`
-	Species          string       `json:"species" example:"Лев"`
+	Species          string       `json:"species" example:"Lion"`
 	BirthDate        time.Time    `json:"birth_date" example:"2020-01-15T00:00:00Z"`
 	Gender           Gender       `json:"gender" example:"male"`
 	FavoriteFood     string       `json:"favorite_food" example:"Мясо"`

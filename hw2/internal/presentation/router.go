@@ -2,6 +2,8 @@ package presentation
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 
 	"github.com/Babushkin05/software-dev-course/hw2/internal/application/ports"
 	"github.com/Babushkin05/software-dev-course/hw2/internal/application/services"
@@ -17,6 +19,8 @@ func SetupRouter(
 ) *gin.Engine {
 	r := gin.Default()
 	api := r.Group("/api")
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	animalHandler := &handlers.AnimalHandler{
 		TransferService: transferService,
