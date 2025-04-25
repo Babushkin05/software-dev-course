@@ -25,6 +25,17 @@ func (h *EnclosureHandler) RegisterRoutes(r *gin.RouterGroup) {
 	r.DELETE("/enclosures/:id", h.Delete)
 }
 
+// Create создает новый вольер
+// @Summary Создать вольер
+// @Description Добавляет новый вольер в систему
+// @Tags enclosures
+// @Accept json
+// @Produce json
+// @Param enclosure body CreateEnclosureRequest true "Данные вольера"
+// @Success 201 {object} domain.Enclosure
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /enclosures [post]
 func (h *EnclosureHandler) Create(c *gin.Context) {
 	var req CreateEnclosureRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -48,6 +59,14 @@ func (h *EnclosureHandler) Create(c *gin.Context) {
 	c.JSON(http.StatusCreated, enclosure)
 }
 
+// List возвращает список всех вольеров
+// @Summary Получить список вольеров
+// @Description Возвращает список всех вольеров в зоопарке
+// @Tags enclosures
+// @Produce json
+// @Success 200 {array} domain.Enclosure
+// @Failure 500 {object} map[string]string
+// @Router /enclosures [get]
 func (h *EnclosureHandler) List(c *gin.Context) {
 	enclosures, err := h.Repo.List()
 	if err != nil {
@@ -57,6 +76,15 @@ func (h *EnclosureHandler) List(c *gin.Context) {
 	c.JSON(http.StatusOK, enclosures)
 }
 
+// Delete удаляет вольер
+// @Summary Удалить вольер
+// @Description Удаляет вольер по ID
+// @Tags enclosures
+// @Produce json
+// @Param id path string true "ID вольера"
+// @Success 200 {object} map[string]string
+// @Failure 404 {object} map[string]string
+// @Router /enclosures/{id} [delete]
 func (h *EnclosureHandler) Delete(c *gin.Context) {
 	id := c.Param("id")
 	err := h.Repo.Delete(id)

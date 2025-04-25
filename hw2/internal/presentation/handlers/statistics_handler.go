@@ -15,6 +15,14 @@ func (h *StatisticsHandler) RegisterRoutes(r *gin.RouterGroup) {
 	r.GET("/statistics", h.GetStatistics)
 }
 
+// GetStatistics возвращает статистику зоопарка
+// @Summary Получить статистику зоопарка
+// @Description Возвращает статистическую информацию о животных, вольерах и их загруженности
+// @Tags statistics
+// @Produce json
+// @Success 200 {object} services.ZooStatistics
+// @Failure 500 {object} map[string]string
+// @Router /statistics [get]
 func (h *StatisticsHandler) GetStatistics(c *gin.Context) {
 	stats, err := h.Service.GetStatistics()
 	if err != nil {

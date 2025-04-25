@@ -14,11 +14,11 @@ const (
 )
 
 type Enclosure struct {
-	ID        string
-	Type      EnclosureType
-	Size      int
-	Capacity  int
-	AnimalIDs []string
+	ID        string        `json:"id" example:"e1f2g3h4"`
+	Type      EnclosureType `json:"type" example:"predator"`
+	Size      int           `json:"size" example:"100"`
+	Capacity  int           `json:"capacity" example:"5"`
+	AnimalIDs []string      `json:"animal_ids,omitempty" example:"a1b2c3d4,b2c3d4e5"`
 }
 
 func NewEnclosure(enclosureType EnclosureType, size, capacity int) (*Enclosure, error) {

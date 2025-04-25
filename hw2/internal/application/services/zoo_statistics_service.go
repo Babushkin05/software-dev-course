@@ -3,9 +3,9 @@ package services
 import "github.com/Babushkin05/software-dev-course/hw2/internal/application/ports"
 
 type ZooStatistics struct {
-	TotalAnimals    int
-	FreeEnclosures  int
-	TotalEnclosures int
+	TotalAnimals    int `json:"total_animals" example:"42"`
+	FreeEnclosures  int `json:"free_enclosures" example:"5"`
+	TotalEnclosures int `json:"total_enclosures" example:"15"`
 }
 
 type ZooStatisticsService struct {

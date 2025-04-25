@@ -1,0 +1,423 @@
+basePath: /api
+definitions:
+  domain.Animal:
+    properties:
+      birth_date:
+        example: "2020-01-15T00:00:00Z"
+        type: string
+      current_enclosure:
+        example: e1f2g3h4
+        type: string
+      favorite_food:
+        example: Мясо
+        type: string
+      gender:
+        allOf:
+        - $ref: '#/definitions/domain.Gender'
+        example: male
+      health:
+        allOf:
+        - $ref: '#/definitions/domain.HealthStatus'
+        example: healty
+      id:
+        example: a1b2c3d4
+        type: string
+      name:
+        example: Симба
+        type: string
+      species:
+        example: Лев
+        type: string
+    type: object
+  domain.Enclosure:
+    properties:
+      animal_ids:
+        example:
+        - a1b2c3d4
+        - b2c3d4e5
+        items:
+          type: string
+        type: array
+      capacity:
+        example: 5
+        type: integer
+      id:
+        example: e1f2g3h4
+        type: string
+      size:
+        example: 100
+        type: integer
+      type:
+        allOf:
+        - $ref: '#/definitions/domain.EnclosureType'
+        example: predator
+    type: object
+  domain.EnclosureType:
+    enum:
+    - predator
+    - herbivore
+    - aquarium
+    - bird
+    type: string
+    x-enum-varnames:
+    - Predator
+    - Herbivore
+    - Aquarium
+    - BirdCage
+  domain.FeedingSchedule:
+    properties:
+      animal_id:
+        example: a1b2c3d4
+        type: string
+      food_type:
+        example: Мясо
+        type: string
+      id:
+        example: f1g2h3i4
+        type: string
+      is_done:
+        example: false
+        type: boolean
+      time:
+        example: "2023-05-15T14:30:00Z"
+        type: string
+    type: object
+  domain.Gender:
+    enum:
+    - male
+    - female
+    type: string
+    x-enum-varnames:
+    - Male
+    - Female
+  domain.HealthStatus:
+    enum:
+    - healthy
+    - sick
+    type: string
+    x-enum-varnames:
+    - Healthy
+    - Sick
+  handlers.CreateAnimalRequest:
+    properties:
+      birth_date:
+        type: string
+      favorite_food:
+        type: string
+      gender:
+        type: string
+      name:
+        type: string
+      species:
+        type: string
+    type: object
+  handlers.CreateEnclosureRequest:
+    properties:
+      capacity:
+        type: integer
+      size:
+        type: integer
+      type:
+        type: string
+    type: object
+  handlers.CreateFeedingRequest:
+    properties:
+      animal_id:
+        type: string
+      food:
+        type: string
+      time:
+        type: string
+    type: object
+  handlers.MoveAnimalRequest:
+    properties:
+      to_enclosure:
+        type: string
+    type: object
+  services.ZooStatistics:
+    properties:
+      free_enclosures:
+        example: 5
+        type: integer
+      total_animals:
+        example: 42
+        type: integer
+      total_enclosures:
+        example: 15
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Система управления зоопарком.
+  title: Zoo Management API
+  version: "1.0"
+paths:
+  /animals:
+    get:
+      description: Возвращает список всех животных в зоопарке
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Animal'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Получить список животных
+      tags:
+      - animals
+    post:
+      consumes:
+      - application/json
+      description: Добавляет новое животное в систему
+      parameters:
+      - description: Данные животного
+        in: body
+        name: animal
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateAnimalRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Animal'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Создать животное
+      tags:
+      - animals
+  /animals/{id}:
+    delete:
+      description: Удаляет животное по ID
+      parameters:
+      - description: ID животного
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Удалить животное
+      tags:
+      - animals
+  /animals/{id}/move:
+    post:
+      consumes:
+      - application/json
+      description: Перемещает животное в указанный вольер
+      parameters:
+      - description: ID животного
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: ID целевого вольера
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.MoveAnimalRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Переместить животное
+      tags:
+      - animals
+  /enclosures:
+    get:
+      description: Возвращает список всех вольеров в зоопарке
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Enclosure'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Получить список вольеров
+      tags:
+      - enclosures
+    post:
+      consumes:
+      - application/json
+      description: Добавляет новый вольер в систему
+      parameters:
+      - description: Данные вольера
+        in: body
+        name: enclosure
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateEnclosureRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Enclosure'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Создать вольер
+      tags:
+      - enclosures
+  /enclosures/{id}:
+    delete:
+      description: Удаляет вольер по ID
+      parameters:
+      - description: ID вольера
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Удалить вольер
+      tags:
+      - enclosures
+  /feedings:
+    get:
+      description: Возвращает список всех расписаний кормления
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.FeedingSchedule'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Получить расписания кормления
+      tags:
+      - feedings
+    post:
+      consumes:
+      - application/json
+      description: Добавляет новое расписание кормления животного
+      parameters:
+      - description: Данные расписания кормления
+        in: body
+        name: schedule
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateFeedingRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Создать расписание кормления
+      tags:
+      - feedings
+  /statistics:
+    get:
+      description: Возвращает статистическую информацию о животных, вольерах и их
+        загруженности
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.ZooStatistics'
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Получить статистику зоопарка
+      tags:
+      - statistics
+swagger: "2.0"

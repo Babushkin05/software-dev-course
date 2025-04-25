@@ -30,6 +30,17 @@ func (h *AnimalHandler) RegisterRoutes(r *gin.RouterGroup) {
 	r.POST("/animals/:id/move", h.MoveAnimal)
 }
 
+// CreateAnimal создает новое животное
+// @Summary Создать животное
+// @Description Добавляет новое животное в систему
+// @Tags animals
+// @Accept json
+// @Produce json
+// @Param animal body CreateAnimalRequest true "Данные животного"
+// @Success 201 {object} domain.Animal
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /animals [post]
 func (h *AnimalHandler) CreateAnimal(c *gin.Context) {
 	var req CreateAnimalRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -58,11 +69,25 @@ func (h *AnimalHandler) CreateAnimal(c *gin.Context) {
 	c.JSON(http.StatusCreated, animal)
 }
 
+// MoveAnimalRequest represents the request body for moving an animal to another enclosure
+type MoveAnimalRequest struct {
+	ToEnclosure string `json:"to_enclosure"`
+}
+
+// MoveAnimal перемещает животное в другой вольер
+// @Summary Переместить животное
+// @Description Перемещает животное в указанный вольер
+// @Tags animals
+// @Accept json
+// @Produce json
+// @Param id path string true "ID животного"
+// @Param input body MoveAnimalRequest true "ID целевого вольера"
+// @Success 200 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /animals/{id}/move [post]
 func (h *AnimalHandler) MoveAnimal(c *gin.Context) {
 	id := c.Param("id")
-	var body struct {
-		ToEnclosure string `json:"to_enclosure"`
-	}
+	var body MoveAnimalRequest
 	if err := c.ShouldBindJSON(&body); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "bad request"})
 		return
@@ -77,6 +102,14 @@ func (h *AnimalHandler) MoveAnimal(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "animal moved"})
 }
 
+// ListAnimals возвращает список всех животных
+// @Summary Получить список животных
+// @Description Возвращает список всех животных в зоопарке
+// @Tags animals
+// @Produce json
+// @Success 200 {array} domain.Animal
+// @Failure 500 {object} map[string]string
+// @Router /animals [get]
 func (h *AnimalHandler) ListAnimals(c *gin.Context) {
 	animals, err := h.AdminService.ListAnimals()
 	if err != nil {
@@ -86,6 +119,15 @@ func (h *AnimalHandler) ListAnimals(c *gin.Context) {
 	c.JSON(http.StatusOK, animals)
 }
 
+// DeleteAnimal удаляет животное
+// @Summary Удалить животное
+// @Description Удаляет животное по ID
+// @Tags animals
+// @Produce json
+// @Param id path string true "ID животного"
+// @Success 200 {object} map[string]string
+// @Failure 404 {object} map[string]string
+// @Router /animals/{id} [delete]
 func (h *AnimalHandler) DeleteAnimal(c *gin.Context) {
 	id := c.Param("id")
 	err := h.AdminService.DeleteAnimal(id)

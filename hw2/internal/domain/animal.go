@@ -18,14 +18,14 @@ const (
 )
 
 type Animal struct {
-	ID               string
-	Name             string
-	Species          string
-	BirthDate        time.Time
-	Gender           Gender
-	FavoriteFood     string
-	Health           HealthStatus
-	CurrentEnclosure string
+	ID               string       `json:"id" example:"a1b2c3d4"`
+	Name             string       `json:"name" example:"Симба"`
+	Species          string       `json:"species" example:"Лев"`
+	BirthDate        time.Time    `json:"birth_date" example:"2020-01-15T00:00:00Z"`
+	Gender           Gender       `json:"gender" example:"male"`
+	FavoriteFood     string       `json:"favorite_food" example:"Мясо"`
+	Health           HealthStatus `json:"health" example:"healty"`
+	CurrentEnclosure string       `json:"current_enclosure,omitempty" example:"e1f2g3h4"`
 }
 
 func NewAnimal(name, species string, birthDate time.Time, gender Gender, favoriteFood string) (*Animal, error) {

@@ -7,11 +7,11 @@ import (
 )
 
 type FeedingSchedule struct {
-	ID       string
-	AnimalID string
-	Time     time.Time
-	FoodType string
-	IsDone   bool
+	ID       string    `json:"id" example:"f1g2h3i4"`
+	AnimalID string    `json:"animal_id" example:"a1b2c3d4"`
+	Time     time.Time `json:"time" example:"2023-05-15T14:30:00Z"`
+	FoodType string    `json:"food_type" example:"Мясо"`
+	IsDone   bool      `json:"is_done" example:"false"`
 }
 
 func NewFeedingSchedule(animalID string, t time.Time, foodType string) (*FeedingSchedule, error) {
