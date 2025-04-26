@@ -5,6 +5,12 @@ import (
 	"github.com/Babushkin05/software-dev-course/hw2/internal/domain"
 )
 
+type IZooAdminService interface {
+	CreateAnimal(animal *domain.Animal) error
+	DeleteAnimal(id string) error
+	ListAnimals() ([]*domain.Animal, error)
+}
+
 type ZooAdminService struct {
 	animalRepo ports.AnimalRepository
 }

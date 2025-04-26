@@ -9,7 +9,11 @@ import (
 )
 
 type FeedingScheduleHandler struct {
-	Service *services.FeedingOrganizerService
+	Service services.IFeedingOrganizerService
+}
+
+func NewFeedingScheduleHandler(s services.IFeedingOrganizerService) FeedingScheduleHandler {
+	return FeedingScheduleHandler{Service: s}
 }
 
 type CreateFeedingRequest struct {

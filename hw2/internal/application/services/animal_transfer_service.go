@@ -5,6 +5,10 @@ import (
 	"github.com/Babushkin05/software-dev-course/hw2/internal/domain"
 )
 
+type IAnimalTransferService interface {
+	MoveAnimal(animalID, toEnclosureID string) error
+}
+
 type AnimalTransferService struct {
 	animals    ports.AnimalRepository
 	enclosures ports.EnclosureRepository

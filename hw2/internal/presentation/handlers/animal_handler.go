@@ -11,8 +11,12 @@ import (
 )
 
 type AnimalHandler struct {
-	TransferService *services.AnimalTransferService
-	AdminService    *services.ZooAdminService
+	TransferService services.IAnimalTransferService
+	AdminService    services.IZooAdminService
+}
+
+func NewAnimalHandler(t services.IAnimalTransferService, a services.IZooAdminService) AnimalHandler {
+	return AnimalHandler{TransferService: t, AdminService: a}
 }
 
 type CreateAnimalRequest struct {
@@ -62,7 +66,7 @@ func (h *AnimalHandler) CreateAnimal(c *gin.Context) {
 
 	err = h.AdminService.CreateAnimal(animal)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to save"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to save"})
 		return
 	}
 

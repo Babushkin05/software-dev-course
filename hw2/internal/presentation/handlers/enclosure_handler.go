@@ -13,6 +13,10 @@ type EnclosureHandler struct {
 	Repo ports.EnclosureRepository
 }
 
+func NewEnclosureHandler(p ports.EnclosureRepository) EnclosureHandler {
+	return EnclosureHandler{Repo: p}
+}
+
 type CreateEnclosureRequest struct {
 	Type     string `json:"type"`
 	Size     int    `json:"size"`
@@ -52,7 +56,7 @@ func (h *EnclosureHandler) Create(c *gin.Context) {
 
 	err = h.Repo.Save(enclosure)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to save"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to save"})
 		return
 	}
 
@@ -70,7 +74,7 @@ func (h *EnclosureHandler) Create(c *gin.Context) {
 func (h *EnclosureHandler) List(c *gin.Context) {
 	enclosures, err := h.Repo.List()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to list"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to list"})
 		return
 	}
 	c.JSON(http.StatusOK, enclosures)

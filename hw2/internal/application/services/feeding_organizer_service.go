@@ -7,6 +7,12 @@ import (
 	"github.com/Babushkin05/software-dev-course/hw2/internal/domain"
 )
 
+type IFeedingOrganizerService interface {
+	AddFeeding(animalID string, t time.Time, food string) error
+	NotifyFeedingDue()
+	GetAllSchedules() ([]*domain.FeedingSchedule, error)
+}
+
 type FeedingOrganizerService struct {
 	schedules ports.FeedingScheduleRepository
 	publisher ports.EventPublisher
