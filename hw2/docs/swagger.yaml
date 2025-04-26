@@ -26,7 +26,7 @@ definitions:
         example: Симба
         type: string
       species:
-        example: Лев
+        example: Lion
         type: string
     type: object
   domain.Enclosure:
@@ -148,8 +148,16 @@ definitions:
     type: object
 host: localhost:8080
 info:
-  contact: {}
-  description: Система управления зоопарком.
+  contact:
+    email: support@zoo.example.com
+    name: API Support
+    url: http://example.com/support
+  description: 'API для управления зоопарком: животные, вольеры, расписание кормления
+    и статистика.'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
   title: Zoo Management API
   version: "1.0"
 paths:
@@ -420,4 +428,6 @@ paths:
       summary: Получить статистику зоопарка
       tags:
       - statistics
+schemes:
+- http
 swagger: "2.0"

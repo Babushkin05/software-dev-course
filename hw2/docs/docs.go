@@ -9,7 +9,16 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://example.com/support",
+            "email": "support@zoo.example.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -462,7 +471,7 @@ const docTemplate = `{
                 },
                 "species": {
                     "type": "string",
-                    "example": "Лев"
+                    "example": "Lion"
                 }
             }
         },
@@ -644,9 +653,9 @@ var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:8080",
 	BasePath:         "/api",
-	Schemes:          []string{},
+	Schemes:          []string{"http"},
 	Title:            "Zoo Management API",
-	Description:      "Система управления зоопарком.",
+	Description:      "API для управления зоопарком: животные, вольеры, расписание кормления и статистика.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
