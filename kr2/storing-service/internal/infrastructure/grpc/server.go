@@ -16,7 +16,7 @@ func NewFileStoringServer(usecase input.FileUseCase) *FileStoringServer {
 	return &FileStoringServer{usecase: usecase}
 }
 
-func (s *FileStoringServer) UploadFile(ctx context.Context, req *filestoringpb.UploadRequest) (*filestoringpb.UploadResponse, error) {
+func (s *FileStoringServer) Upload(ctx context.Context, req *filestoringpb.UploadRequest) (*filestoringpb.UploadResponse, error) {
 	id, err := s.usecase.Upload(req.Filename, req.Content)
 	if err != nil {
 		return nil, err
@@ -25,7 +25,7 @@ func (s *FileStoringServer) UploadFile(ctx context.Context, req *filestoringpb.U
 	return &filestoringpb.UploadResponse{FileId: id}, nil
 }
 
-func (s *FileStoringServer) DownloadFile(ctx context.Context, req *filestoringpb.DownloadRequest) (*filestoringpb.DownloadResponse, error) {
+func (s *FileStoringServer) Download(ctx context.Context, req *filestoringpb.DownloadRequest) (*filestoringpb.DownloadResponse, error) {
 	filename, content, err := s.usecase.Download(req.FileId)
 	if err != nil {
 		return nil, err

@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 
+	"github.com/Babushkin05/software-dev-course/kr2/storing-service/internal/config"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 )
@@ -16,16 +17,7 @@ type S3Storage struct {
 	bucket string
 }
 
-type S3Config struct {
-	Endpoint  string
-	AccessKey string
-	SecretKey string
-	Region    string
-	UseSSL    bool
-	Bucket    string
-}
-
-func NewS3Storage(c S3Config) (*S3Storage, error) {
+func NewS3Storage(c config.S3Config) (*S3Storage, error) {
 	endpoint := c.Endpoint
 	accessKey := c.Endpoint
 	secretKey := c.SecretKey
@@ -44,7 +36,7 @@ func NewS3Storage(c S3Config) (*S3Storage, error) {
 	return &S3Storage{client: client, bucket: bucket}, nil
 }
 
-func (s *S3Storage) Save(ctx context.Context, id string, data []byte) error {
+func (s *S3Storage) SaveFile(ctx context.Context, id string, data []byte) error {
 	reader := bytes.NewReader(data)
 
 	_, err := s.client.PutObject(ctx, s.bucket, id, reader, int64(len(data)), minio.PutObjectOptions{
@@ -58,7 +50,7 @@ func (s *S3Storage) Save(ctx context.Context, id string, data []byte) error {
 	return nil
 }
 
-func (s *S3Storage) Get(ctx context.Context, id string) ([]byte, error) {
+func (s *S3Storage) GetFile(ctx context.Context, id string) ([]byte, error) {
 	obj, err := s.client.GetObject(ctx, s.bucket, id, minio.GetObjectOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to get object: %w", err)

@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"time"
 
 	"github.com/Babushkin05/software-dev-course/kr2/storing-service/internal/application/ports/input"
@@ -32,7 +33,8 @@ func (s *FileService) Upload(filename string, content []byte) (string, error) {
 	}
 
 	// Сохраняем файл в Object Storage
-	if err := s.storage.SaveFile(fileID, content); err != nil {
+	ctx := context.Background()
+	if err := s.storage.SaveFile(ctx, fileID, content); err != nil {
 		return "", err
 	}
 
@@ -52,7 +54,8 @@ func (s *FileService) Download(fileID string) (string, []byte, error) {
 	}
 
 	// Получаем файл из Object Storage
-	content, err := s.storage.GetFile(fileID)
+	ctx := context.Background()
+	content, err := s.storage.GetFile(ctx, fileID)
 	if err != nil {
 		return "", nil, err
 	}
