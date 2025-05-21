@@ -45,7 +45,7 @@ func (s *FileService) Upload(filename string, content []byte) (string, error) {
 }
 
 func (s *FileService) Download(fileID string) (string, []byte, error) {
-	// Получаем метаданные
+	// Получаем метаданные из БД
 	file, err := s.fileRepo.GetMetadata(fileID)
 	if err != nil {
 		return "", nil, err

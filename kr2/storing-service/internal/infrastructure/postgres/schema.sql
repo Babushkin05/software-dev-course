@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS files (
+    id UUID PRIMARY KEY,
+    filename TEXT NOT NULL,
+    size BIGINT NOT NULL,
+    created_at TIMESTAMP NOT NULL
+);
