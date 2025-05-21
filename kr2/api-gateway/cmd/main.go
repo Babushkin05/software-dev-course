@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	fileanalysispb "github.com/Babushkin05/software-dev-course/kr2/api-gateway/api/gen/fileanalysispb"
-	filestoringpb "github.com/Babushkin05/software-dev-course/kr2/api-gateway/api/gen/filestoringpb"
+	fileanalysispb "github.com/Babushkin05/software-dev-course/kr2/api-gateway/api/gen/fileanalysis"
+	filestoringpb "github.com/Babushkin05/software-dev-course/kr2/api-gateway/api/gen/filestoring"
 	"github.com/Babushkin05/software-dev-course/kr2/api-gateway/internal/application/services"
 	"github.com/Babushkin05/software-dev-course/kr2/api-gateway/internal/config"
 	grpcinfra "github.com/Babushkin05/software-dev-course/kr2/api-gateway/internal/infrastructure/service_grpc"
@@ -16,11 +16,11 @@ import (
 )
 
 func main() {
-	// 1. Load config
+	// Load config
 	cfg := config.MustLoad()
 	fmt.Printf("Loaded config: %+v\n", cfg)
 
-	// 2. Set up gRPC connections with timeout from config
+	// Set up gRPC connections with timeout from config
 	ctx, cancel := context.WithTimeout(context.Background(), cfg.GRPC.Timeout)
 	defer cancel()
 
@@ -46,23 +46,23 @@ func main() {
 	}
 	defer faConn.Close()
 
-	// 3. Create gRPC clients
+	// Create gRPC clients
 	fsClient := filestoringpb.NewFileStoringServiceClient(fsConn)
 	faClient := fileanalysispb.NewFileAnalysisServiceClient(faConn)
 
-	// 4. Wrap them with infrastructure adapters
+	// Wrap them with infrastructure adapters
 	fsAdapter := grpcinfra.NewFileStoringClient(fsClient)
 	faAdapter := grpcinfra.NewFileAnalysisClient(faClient)
 
-	// 5. Build usecase
+	// Build usecase
 	usecase := services.NewFileService(fsAdapter, faAdapter)
 
-	// 6. Start HTTP server on port from config
+	// Start HTTP server on port from config
 	addr := fmt.Sprintf(":%d", cfg.HTTP.Port)
 	fmt.Println("API Gateway running on", addr)
 	router := service_http.NewRouter(usecase)
 
-	// Optional: create http.Server with graceful shutdown if needed
+	// create http.Server with graceful shutdown if needed
 	server := &http.Server{
 		Addr:    addr,
 		Handler: router,
