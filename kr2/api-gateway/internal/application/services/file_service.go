@@ -30,9 +30,8 @@ func (s *FileService) UploadFile(ctx context.Context, file io.Reader, filename s
 	return s.FileStoringClient.Upload(ctx, content, filename)
 }
 
-func (s *FileService) AnalyzeFile(ctx context.Context, fileID string) ([]byte, error) {
-	content, _, err := s.FileAnalysisClient.Analyze(ctx, fileID)
-	return content, err
+func (s *FileService) AnalyzeFile(ctx context.Context, fileID string) ([]byte, string, error) {
+	return s.FileAnalysisClient.AnalyzeFile(ctx, fileID)
 }
 
 func (s *FileService) DownloadFile(ctx context.Context, fileID string) ([]byte, string, error) {

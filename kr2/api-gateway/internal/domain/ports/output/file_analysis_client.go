@@ -5,6 +5,6 @@ import (
 )
 
 type FileAnalysisClient interface {
-	Analyze(ctx context.Context, fileID string) ([]byte, string, error)
+	AnalyzeFile(ctx context.Context, fileID string) ([]byte, string, error)
 	GetWordCloud(ctx context.Context, fileID string) ([]byte, string, error)
 }

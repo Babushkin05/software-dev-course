@@ -9,13 +9,24 @@ import (
 )
 
 type Config struct {
-	Env  string     `yaml:"env" env-default:"local"`
-	GRPC GRPCConfig `yaml:"grpc"`
+	Env      string         `mapstructure:"env"`
+	GRPC     GRPCConfig     `mapstructure:"grpc"`
+	HTTP     HTTPConfig     `mapstructure:"http"`
+	Services ServicesConfig `mapstructure:"services"`
 }
 
 type GRPCConfig struct {
-	Port    int           `yaml:"port"`
-	Timeout time.Duration `yaml:"timeout"`
+	Port    int           `mapstructure:"port"`
+	Timeout time.Duration `mapstructure:"timeout"`
+}
+
+type HTTPConfig struct {
+	Port int `mapstructure:"port"`
+}
+
+type ServicesConfig struct {
+	FileStoring  string `mapstructure:"file_storing"`
+	FileAnalysis string `mapstructure:"file_analysis"`
 }
 
 func MustLoad() *Config {

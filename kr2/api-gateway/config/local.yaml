@@ -1,4 +1,12 @@
 env: "local"
-grpc: 
+
+grpc:
   port: 44044
   timeout: 10h
+
+http:
+  port: 8080
+
+services:
+  file_storing: "localhost:50051"
+  file_analysis: "localhost:50052"
