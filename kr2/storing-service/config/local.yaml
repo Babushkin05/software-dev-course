@@ -1,0 +1,21 @@
+env: "local"
+
+grpc:
+  port: 50051
+  timeout: 10s
+
+postgres:
+  host: "localhost"
+  port: 5432
+  user: ${POSTGRES_USER}
+  password: ${POSTGRES_PASSWORD}
+  dbname: ${POSTGRES_DB}
+  sslmode: "disable"
+
+s3:
+  endpoint: "storage.yandexcloud.net"
+  access_key: ${S3_ACCESS_KEY}
+  secret_key: ${S3_SECRET_KEY}
+  region: "ru-central1"
+  bucket: ${S3_BUCKET}
+  use_ssl: true

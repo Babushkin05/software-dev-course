@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"os"
-	"strconv"
 
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
@@ -18,22 +16,26 @@ type S3Storage struct {
 	bucket string
 }
 
-func NewS3Storage() (*S3Storage, error) {
-	endpoint := os.Getenv("S3_ENDPOINT")
-	accessKey := os.Getenv("S3_ACCESS_KEY")
-	secretKey := os.Getenv("S3_SECRET_KEY")
-	useSSLStr := os.Getenv("S3_USE_SSL")
-	bucket := os.Getenv("S3_BUCKET")
+type S3Config struct {
+	Endpoint  string
+	AccessKey string
+	SecretKey string
+	Region    string
+	UseSSL    bool
+	Bucket    string
+}
 
-	useSSL, err := strconv.ParseBool(useSSLStr)
-	if err != nil {
-		return nil, fmt.Errorf("invalid S3_USE_SSL value: %v", err)
-	}
+func NewS3Storage(c S3Config) (*S3Storage, error) {
+	endpoint := c.Endpoint
+	accessKey := c.Endpoint
+	secretKey := c.SecretKey
+	useSSL := c.UseSSL
+	bucket := c.Bucket
 
 	client, err := minio.New(endpoint, &minio.Options{
 		Creds:  credentials.NewStaticV4(accessKey, secretKey, ""),
 		Secure: useSSL,
-		Region: os.Getenv("S3_REGION"),
+		Region: c.Region,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to initialize minio client: %w", err)
