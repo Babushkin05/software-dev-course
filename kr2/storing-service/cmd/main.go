@@ -13,6 +13,7 @@ import (
 	"github.com/Babushkin05/software-dev-course/kr2/storing-service/internal/infrastructure/storage"
 	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -53,6 +54,8 @@ func main() {
 	// 7. Register service implementation
 	fileStoringServer := grpc_server.NewFileStoringServer(service)
 	filestoringpb.RegisterFileStoringServiceServer(grpcServer, fileStoringServer)
+
+	reflection.Register(grpcServer)
 
 	// 8. Start listening
 	addr := fmt.Sprintf(":%d", cfg.GRPC.Port)

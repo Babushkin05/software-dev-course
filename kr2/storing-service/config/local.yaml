@@ -5,17 +5,17 @@ grpc:
   timeout: 10s
 
 postgres:
-  host: "localhost"
+  host: "postgres"
   port: 5432
-  user: ${POSTGRES_USER}
-  password: ${POSTGRES_PASSWORD}
-  dbname: ${POSTGRES_DB}
+  user: ""
+  password: ""
+  dbname: ""
   sslmode: "disable"
 
 s3:
   endpoint: "storage.yandexcloud.net"
-  access_key: ${S3_ACCESS_KEY}
-  secret_key: ${S3_SECRET_KEY}
+  access_key: ""
+  secret_key: ""
   region: "ru-central1"
-  bucket: ${S3_BUCKET}
+  bucket: ""
   use_ssl: true

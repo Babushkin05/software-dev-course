@@ -19,7 +19,7 @@ type S3Storage struct {
 
 func NewS3Storage(c config.S3Config) (*S3Storage, error) {
 	endpoint := c.Endpoint
-	accessKey := c.Endpoint
+	accessKey := c.AccessKey
 	secretKey := c.SecretKey
 	useSSL := c.UseSSL
 	bucket := c.Bucket
