@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package filestoring;
+
+option go_package = "github.com/Babushkin05/software-dev-course/kr2/analyse-service/api/gen/filestoringpb;filestoringpb";
+
+service FileStoringService {
+  rpc Upload(UploadRequest) returns (UploadResponse);
+  rpc Download(DownloadRequest) returns (DownloadResponse);
+}
+
+message UploadRequest {
+  string filename = 1;
+  bytes content = 2;
+}
+
+message UploadResponse {
+  string file_id = 1;
+}
+
+message DownloadRequest {
+  string file_id = 1;
+}
+
+message DownloadResponse {
+  string filename = 1;
+  bytes content = 2;
+}
