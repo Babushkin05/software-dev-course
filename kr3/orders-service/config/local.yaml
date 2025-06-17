@@ -1,0 +1,10 @@
+grpc:
+  port: "50052"
+
+postgres:
+  dsn: "postgres://user:password@localhost:5433/orders?sslmode=disable"
+
+kafka:
+  broker: "localhost:9092"
+  topic: "order_created"
+  group_id: "orders-service-group"

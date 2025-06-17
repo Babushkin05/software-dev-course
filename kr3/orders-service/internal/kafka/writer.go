@@ -8,6 +8,10 @@ import (
 	"github.com/segmentio/kafka-go"
 )
 
+type OrderWriter interface {
+	WriteOrder(ctx context.Context, order *model.Order) error
+}
+
 type Writer struct {
 	writer *kafka.Writer
 }
