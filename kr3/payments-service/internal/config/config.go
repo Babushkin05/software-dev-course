@@ -15,9 +15,16 @@ type DatabaseConfig struct {
 	DSN string `yaml:"dsn"`
 }
 
+type KafkaConfig struct {
+	Broker  string `yaml:"broker"`
+	Topic   string `yaml:"topic"`
+	GroupID string `yaml:"group_id"`
+}
+
 type Config struct {
 	GRPC     GRPCConfig     `yaml:"grpc"`
 	Postgres DatabaseConfig `yaml:"postgres"`
+	Kafka    KafkaConfig    `yaml:"kafka"`
 }
 
 func MustLoad() *Config {

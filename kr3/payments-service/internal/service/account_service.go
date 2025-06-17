@@ -15,16 +15,16 @@ var (
 )
 
 type AccountService struct {
-	repo *db.AccountRepository
+	Repo db.AccountStorage
 }
 
-func NewAccountService(repo *db.AccountRepository) *AccountService {
-	return &AccountService{repo: repo}
+func NewAccountService(repo db.AccountStorage) *AccountService {
+	return &AccountService{Repo: repo}
 }
 
 // Создание счёта
 func (s *AccountService) CreateAccount(ctx context.Context, userID string) (*model.Account, error) {
-	return s.repo.Create(ctx, userID)
+	return s.Repo.Create(ctx, userID)
 }
 
 // Пополнение
@@ -32,12 +32,12 @@ func (s *AccountService) Deposit(ctx context.Context, userID string, amount int6
 	if amount <= 0 {
 		return 0, fmt.Errorf("invalid amount")
 	}
-	return s.repo.AddBalance(ctx, userID, amount)
+	return s.Repo.AddBalance(ctx, userID, amount)
 }
 
 // Получение баланса
 func (s *AccountService) GetBalance(ctx context.Context, userID string) (int64, error) {
-	return s.repo.GetBalance(ctx, userID)
+	return s.Repo.GetBalance(ctx, userID)
 }
 
 // Списание — используется при оплате заказа
@@ -45,5 +45,5 @@ func (s *AccountService) Withdraw(ctx context.Context, userID string, amount int
 	if amount <= 0 {
 		return 0, fmt.Errorf("invalid amount")
 	}
-	return s.repo.Withdraw(ctx, userID, amount)
+	return s.Repo.Withdraw(ctx, userID, amount)
 }

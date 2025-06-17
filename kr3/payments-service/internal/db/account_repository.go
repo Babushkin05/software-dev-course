@@ -10,6 +10,17 @@ import (
 	"github.com/google/uuid"
 )
 
+type AccountStorage interface {
+	Create(ctx context.Context, userID string) (*model.Account, error)
+	AddBalance(ctx context.Context, userID string, amount int64) (int64, error)
+	GetBalance(ctx context.Context, userID string) (int64, error)
+	Withdraw(ctx context.Context, userID string, amount int64) (int64, error)
+	// Методы Inbox паттерна
+	SaveInboxMessage(msg InboxMessage) error
+	FetchUnprocessedInboxMessages(limit int) ([]InboxMessage, error)
+	MarkInboxMessageProcessed(messageID string) error
+}
+
 type AccountRepository struct {
 	db *sql.DB
 }
