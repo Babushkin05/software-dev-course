@@ -1,0 +1,5 @@
+grpc:
+  port: ":50051"
+
+postgres:
+  dsn: "postgres://user:password@payments-postgres:5432/payments?sslmode=disable"
