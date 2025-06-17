@@ -12,10 +12,10 @@ import (
 
 type OrderService struct {
 	storage     db.OrderStorage
-	kafkaWriter *kafka.Writer
+	kafkaWriter kafka.OrderWriter
 }
 
-func NewOrderService(storage db.OrderStorage, kafkaWriter *kafka.Writer) *OrderService {
+func NewOrderService(storage db.OrderStorage, kafkaWriter kafka.OrderWriter) *OrderService {
 	return &OrderService{
 		storage:     storage,
 		kafkaWriter: kafkaWriter,
