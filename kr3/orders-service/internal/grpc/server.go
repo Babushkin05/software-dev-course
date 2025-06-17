@@ -1,25 +1,27 @@
 package grpc
 
 import (
+	"fmt"
 	"log"
 	"net"
 
-	"google.golang.org/grpc"
-
-	pb "github.com/Babushkin05/software-dev-course/kr3/orders-service/api/gen"
-	"github.com/Babushkin05/software-dev-course/kr3/orders-service/internal/config"
+	orderspb "github.com/Babushkin05/software-dev-course/kr3/orders-service/api/gen"
 	"github.com/Babushkin05/software-dev-course/kr3/orders-service/internal/service"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
-func RunGRPCServer(orderSvc *service.OrderService, cfg config.GRPCConfig) error {
-	lis, err := net.Listen("tcp", cfg.Port)
+func RunGRPCServer(svc *service.OrderService, port string) error {
+	listener, err := net.Listen("tcp", ":"+port)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to listen: %w", err)
 	}
 
-	s := grpc.NewServer()
-	pb.RegisterOrdersServiceServer(s, NewHandler(orderSvc))
+	server := grpc.NewServer()
+	orderspb.RegisterOrdersServiceServer(server, NewHandler(svc))
 
-	log.Printf("gRPC server listening on %s", cfg.Port)
-	return s.Serve(lis)
+	reflection.Register(server)
+
+	log.Printf("gRPC server started on port %s", port)
+	return server.Serve(listener)
 }

@@ -59,3 +59,11 @@ func (s *OrderService) GetOrderStatus(ctx context.Context, orderID string) (mode
 func (s *OrderService) MarkOrderFinished(ctx context.Context, orderID string) error {
 	return s.storage.UpdateStatus(ctx, orderID, model.OrderStatusFinished)
 }
+
+func (s *OrderService) GetByID(ctx context.Context, orderID string) (*model.Order, error) {
+	return s.storage.GetByID(ctx, orderID)
+}
+
+func (s *OrderService) MarkFinished(ctx context.Context, orderID string) error {
+	return s.storage.UpdateStatus(ctx, orderID, model.OrderStatusFinished)
+}

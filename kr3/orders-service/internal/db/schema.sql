@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS orders CASCADE;
+
+CREATE TABLE IF NOT EXISTS orders (
+	id TEXT PRIMARY KEY,
+	user_id TEXT NOT NULL,
+	amount BIGINT NOT NULL,
+	description TEXT,
+	status TEXT NOT NULL,
+	created_at TIMESTAMP NOT NULL
+);
