@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"log"
+	"time"
 
 	_ "github.com/lib/pq"
 
@@ -37,13 +38,18 @@ func main() {
 
 	ctx := context.Background()
 
-	// Запуск Kafka consumer
-	kafkaCfg := cfg.Kafka
-	kafka.StartKafkaConsumer(ctx, kafkaCfg, func(msg *segmentioKafka.Message) {
-		_ = kafka.HandleKafkaMessage(msg, repo)
+	kafka.StartInboxConsumer(ctx, cfg.Kafka, func(msg *segmentioKafka.Message) {
+		_ = kafka.HandleInboxMessage(msg, repo)
 	})
 
-	// Запуск процессора inbox
 	kafka.StartInboxProcessor(ctx, svc)
+
+	writer := &segmentioKafka.Writer{
+		Addr:     segmentioKafka.TCP(cfg.Kafka.Broker),
+		Balancer: &segmentioKafka.LeastBytes{},
+	}
+
+	outboxWorker := kafka.NewOutboxWorker(repo, writer, 2*time.Second, 10)
+	outboxWorker.Start(ctx)
 
 }

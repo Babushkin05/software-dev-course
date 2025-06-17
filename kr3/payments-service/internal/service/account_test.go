@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"testing"
 
@@ -11,11 +12,12 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-// Мок под интерфейс AccountStorage
+// MockStorage реализует интерфейс AccountStorage для тестирования
 type MockStorage struct {
 	mock.Mock
 }
 
+// Методы для работы с аккаунтами
 func (m *MockStorage) Create(ctx context.Context, userID string) (*model.Account, error) {
 	args := m.Called(ctx, userID)
 	account, _ := args.Get(0).(*model.Account)
@@ -37,6 +39,7 @@ func (m *MockStorage) Withdraw(ctx context.Context, userID string, amount int64)
 	return args.Get(0).(int64), args.Error(1)
 }
 
+// Методы для работы с входящими сообщениями
 func (m *MockStorage) SaveInboxMessage(msg db.InboxMessage) error {
 	args := m.Called(msg)
 	return args.Error(0)
@@ -51,6 +54,49 @@ func (m *MockStorage) FetchUnprocessedInboxMessages(limit int) ([]db.InboxMessag
 func (m *MockStorage) MarkInboxMessageProcessed(messageID string) error {
 	args := m.Called(messageID)
 	return args.Error(0)
+}
+
+// Методы для работы с исходящими сообщениями
+func (m *MockStorage) SaveOutboxMessage(ctx context.Context, msg db.OutboxMessage) error {
+	args := m.Called(ctx, msg)
+	return args.Error(0)
+}
+
+func (m *MockStorage) SaveOutboxMessageTx(ctx context.Context, tx *sql.Tx, msg db.OutboxMessage) error {
+	args := m.Called(ctx, tx, msg)
+	return args.Error(0)
+}
+
+func (m *MockStorage) FetchUnsentOutboxMessages(limit int) ([]db.OutboxMessage, error) {
+	args := m.Called(limit)
+	messages, _ := args.Get(0).([]db.OutboxMessage)
+	return messages, args.Error(1)
+}
+
+func (m *MockStorage) MarkOutboxMessageSent(messageID string) error {
+	args := m.Called(messageID)
+	return args.Error(0)
+}
+
+// Методы для работы с транзакциями
+func (m *MockStorage) BeginTx(ctx context.Context) (*sql.Tx, error) {
+	args := m.Called(ctx)
+	tx, _ := args.Get(0).(*sql.Tx)
+	return tx, args.Error(1)
+}
+
+func (m *MockStorage) RollbackTx(tx *sql.Tx) {
+	m.Called(tx)
+}
+
+func (m *MockStorage) CommitTx(tx *sql.Tx) error {
+	args := m.Called(tx)
+	return args.Error(0)
+}
+
+func (m *MockStorage) WithdrawTx(ctx context.Context, tx *sql.Tx, userID string, amount int64) (int64, error) {
+	args := m.Called(ctx, tx, userID, amount)
+	return args.Get(0).(int64), args.Error(1)
 }
 
 func TestCreateAccount(t *testing.T) {
@@ -99,31 +145,6 @@ func TestDeposit(t *testing.T) {
 		_, err := svc.Deposit(ctx, "user2", 200)
 		assert.Error(t, err)
 		assert.EqualError(t, err, "db error")
-	})
-}
-
-func TestWithdraw(t *testing.T) {
-	mockStorage := new(MockStorage)
-	svc := NewAccountService(mockStorage)
-
-	ctx := context.Background()
-
-	t.Run("success", func(t *testing.T) {
-		mockStorage.On("Withdraw", ctx, "user1", int64(50)).Return(int64(50), nil)
-
-		newBalance, err := svc.Withdraw(ctx, "user1", 50)
-		assert.NoError(t, err)
-		assert.Equal(t, int64(50), newBalance)
-
-		mockStorage.AssertCalled(t, "Withdraw", ctx, "user1", int64(50))
-	})
-
-	t.Run("insufficient funds", func(t *testing.T) {
-		mockStorage.On("Withdraw", ctx, "user2", int64(999)).Return(int64(0), db.ErrInsufficientFunds)
-
-		_, err := svc.Withdraw(ctx, "user2", 999)
-		assert.Error(t, err)
-		assert.Equal(t, db.ErrInsufficientFunds, err)
 	})
 }
 

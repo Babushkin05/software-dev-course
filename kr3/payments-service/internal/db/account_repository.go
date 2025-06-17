@@ -10,17 +10,6 @@ import (
 	"github.com/google/uuid"
 )
 
-type AccountStorage interface {
-	Create(ctx context.Context, userID string) (*model.Account, error)
-	AddBalance(ctx context.Context, userID string, amount int64) (int64, error)
-	GetBalance(ctx context.Context, userID string) (int64, error)
-	Withdraw(ctx context.Context, userID string, amount int64) (int64, error)
-	// Методы Inbox паттерна
-	SaveInboxMessage(msg InboxMessage) error
-	FetchUnprocessedInboxMessages(limit int) ([]InboxMessage, error)
-	MarkInboxMessageProcessed(messageID string) error
-}
-
 type AccountRepository struct {
 	db *sql.DB
 }
@@ -121,4 +110,43 @@ func (r *AccountRepository) exists(ctx context.Context, userID string) (bool, er
         SELECT EXISTS(SELECT 1 FROM accounts WHERE user_id = $1)
     `, userID).Scan(&exists)
 	return exists, err
+}
+
+// Tx methods
+func (r *AccountRepository) BeginTx(ctx context.Context) (*sql.Tx, error) {
+	return r.db.BeginTx(ctx, nil)
+}
+
+func (r *AccountRepository) RollbackTx(tx *sql.Tx) {
+	_ = tx.Rollback()
+}
+
+func (r *AccountRepository) CommitTx(tx *sql.Tx) error {
+	return tx.Commit()
+}
+
+func (r *AccountRepository) WithdrawTx(ctx context.Context, tx *sql.Tx, userID string, amount int64) (int64, error) {
+	var newBalance int64
+	err := tx.QueryRowContext(ctx, `
+        UPDATE accounts
+        SET balance = balance - $1
+        WHERE user_id = $2 AND balance >= $1
+        RETURNING balance
+    `, amount, userID).Scan(&newBalance)
+
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			exists, checkErr := r.exists(ctx, userID)
+			if checkErr != nil {
+				return 0, checkErr
+			}
+			if !exists {
+				return 0, ErrAccountNotFound
+			}
+			return 0, ErrInsufficientFunds
+		}
+		return 0, err
+	}
+
+	return newBalance, nil
 }

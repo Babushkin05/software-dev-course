@@ -43,11 +43,13 @@ func processBatch(svc *service.AccountService) {
 
 		ctx := context.Background()
 
-		if _, err := svc.Withdraw(ctx, order.UserID, order.Amount); err != nil {
+		if _, err := svc.Withdraw(ctx, order.UserID, order.ID, order.Amount); err != nil {
 			log.Printf("withdraw failed: %v", err)
 			continue
 		}
 
-		_ = svc.Repo.MarkInboxMessageProcessed(msg.MessageID)
+		if err := svc.Repo.MarkInboxMessageProcessed(msg.MessageID); err != nil {
+			log.Printf("failed to mark inbox message processed: %v", err)
+		}
 	}
 }

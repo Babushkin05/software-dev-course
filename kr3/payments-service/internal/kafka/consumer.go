@@ -8,7 +8,7 @@ import (
 	"github.com/segmentio/kafka-go"
 )
 
-func StartKafkaConsumer(ctx context.Context, kafkaCfg config.KafkaConfig, handler func(msg *kafka.Message)) error {
+func StartInboxConsumer(ctx context.Context, kafkaCfg config.KafkaConfig, handler func(msg *kafka.Message)) error {
 	r := kafka.NewReader(kafka.ReaderConfig{
 		Brokers: []string{kafkaCfg.Broker},
 		Topic:   kafkaCfg.Topic,

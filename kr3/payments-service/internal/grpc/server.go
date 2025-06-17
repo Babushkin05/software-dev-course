@@ -48,15 +48,6 @@ func (s *Server) GetBalance(ctx context.Context, req *pb.GetBalanceRequest) (*pb
 	return &pb.BalanceResponse{Balance: balance}, nil
 }
 
-func (s *Server) Withdraw(ctx context.Context, req *pb.WithdrawRequest) (*pb.BalanceResponse, error) {
-	balance, err := s.svc.Withdraw(ctx, req.UserId, req.Amount)
-	if err != nil {
-		return nil, err
-	}
-
-	return &pb.BalanceResponse{Balance: balance}, nil
-}
-
 func RunGRPCServer(svc *service.AccountService, addr string) error {
 	lis, err := net.Listen("tcp", addr)
 	if err != nil {
