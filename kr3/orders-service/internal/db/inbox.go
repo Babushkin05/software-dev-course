@@ -1,19 +1,23 @@
 package db
 
-import "context"
+import (
+	"context"
+	"time"
+)
 
 type InboxMessage struct {
-	MessageID string
-	Topic     string
-	Payload   string
+	ID      string
+	Topic   string
+	Payload string
 }
 
-func (r *OrderRepository) SaveInboxMessage(ctx context.Context, msg InboxMessage) error {
+func (r *OrderRepository) SaveInboxMessage(ctx context.Context, messageID, topic, payload string) error {
 	_, err := r.db.ExecContext(ctx, `
-		INSERT INTO inbox (message_id, topic, payload)
-		VALUES ($1, $2, $3)
+		INSERT INTO inbox (message_id, topic, payload, created_at, processed)
+		VALUES ($1, $2, $3, $4, false)
 		ON CONFLICT (message_id) DO NOTHING
-	`, msg.MessageID, msg.Topic, msg.Payload)
+	`, messageID, topic, payload, time.Now())
+
 	return err
 }
 
@@ -22,7 +26,7 @@ func (r *OrderRepository) FetchUnprocessedInboxMessages(ctx context.Context, lim
 		SELECT message_id, topic, payload
 		FROM inbox
 		WHERE processed = false
-		ORDER BY created_at ASC
+		ORDER BY created_at
 		LIMIT $1
 	`, limit)
 	if err != nil {
@@ -32,16 +36,19 @@ func (r *OrderRepository) FetchUnprocessedInboxMessages(ctx context.Context, lim
 
 	var msgs []InboxMessage
 	for rows.Next() {
-		var msg InboxMessage
-		if err := rows.Scan(&msg.MessageID, &msg.Topic, &msg.Payload); err != nil {
+		var m InboxMessage
+		if err := rows.Scan(&m.ID, &m.Topic, &m.Payload); err != nil {
 			return nil, err
 		}
-		msgs = append(msgs, msg)
+		msgs = append(msgs, m)
 	}
+
 	return msgs, nil
 }
 
 func (r *OrderRepository) MarkInboxMessageProcessed(ctx context.Context, messageID string) error {
-	_, err := r.db.ExecContext(ctx, `UPDATE inbox SET processed = true WHERE message_id = $1`, messageID)
+	_, err := r.db.ExecContext(ctx, `
+		UPDATE inbox SET processed = true WHERE message_id = $1
+	`, messageID)
 	return err
 }
