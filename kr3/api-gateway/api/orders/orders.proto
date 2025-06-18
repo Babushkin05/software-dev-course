@@ -4,35 +4,14 @@ package orders;
 
 option go_package = "github.com/Babushkin05/software-dev-course/kr3/api-gateway/api/gen/orderspb";
 
-import "google/api/annotations.proto";
-
 service OrdersService {
-  rpc CreateOrder(CreateOrderRequest) returns (OrderResponse) {
-    option (google.api.http) = {
-      post: "/v1/orders"
-      body: "*"
-    };
-  }
-
-  rpc GetOrders(GetOrdersRequest) returns (OrdersList) {
-    option (google.api.http) = {
-      get: "/v1/orders"
-    };
-  }
-
-  rpc GetOrderStatus(GetOrderStatusRequest) returns (OrderStatusResponse) {
-    option (google.api.http) = {
-      get: "/v1/orders/{order_id}/status"
-    };
-  }
+  rpc CreateOrder(CreateOrderRequest) returns (OrderResponse);
+  rpc GetOrders(GetOrdersRequest) returns (OrdersList);
+  rpc GetOrderStatus(GetOrderStatusRequest) returns (OrderStatusResponse);
+  rpc MarkOrderFinished(MarkOrderFinishedRequest) returns (Empty);
 }
 
-message CreateOrderRequest {
-  string user_id = 1;
-  int64 amount = 2;
-  string description = 3;
-}
-
+// Основная сущность заказа
 message Order {
   string id = 1;
   string user_id = 2;
@@ -42,18 +21,29 @@ message Order {
   string created_at = 6;
 }
 
+// Запрос на создание заказа
+message CreateOrderRequest {
+  string user_id = 1;
+  int64 amount = 2;
+  string description = 3;
+}
+
+// Ответ после создания заказа
 message OrderResponse {
   Order order = 1;
 }
 
+// Запрос на список заказов по user_id
 message GetOrdersRequest {
   string user_id = 1;
 }
 
+// Список заказов
 message OrdersList {
   repeated Order orders = 1;
 }
 
+// Запрос на получение статуса заказа
 message GetOrderStatusRequest {
   string order_id = 1;
 }
@@ -61,3 +51,10 @@ message GetOrderStatusRequest {
 message OrderStatusResponse {
   string status = 1;
 }
+
+// Запрос на смену статуса (используется из payments-service)
+message MarkOrderFinishedRequest {
+  string order_id = 1;
+}
+
+message Empty {}

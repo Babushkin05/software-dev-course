@@ -4,35 +4,11 @@ package payments;
 
 option go_package = "github.com/Babushkin05/software-dev-course/kr3/api-gateway/api/gen/paymentspb";
 
-import "google/api/annotations.proto";
-
 service PaymentsService {
-  rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {
-    option (google.api.http) = {
-      post: "/v1/payments/account"
-      body: "*"
-    };
-  }
-
-  rpc Deposit(DepositRequest) returns (BalanceResponse) {
-    option (google.api.http) = {
-      post: "/v1/payments/deposit"
-      body: "*"
-    };
-  }
-
-  rpc GetBalance(GetBalanceRequest) returns (BalanceResponse) {
-    option (google.api.http) = {
-      get: "/v1/payments/{user_id}/balance"
-    };
-  }
-
-  rpc Withdraw(WithdrawRequest) returns (BalanceResponse) {
-    option (google.api.http) = {
-      post: "/v1/payments/withdraw"
-      body: "*"
-    };
-  }
+  rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
+  rpc Deposit(DepositRequest) returns (BalanceResponse);
+  rpc GetBalance(GetBalanceRequest) returns (BalanceResponse);
+  rpc Withdraw(WithdrawRequest) returns (BalanceResponse);
 }
 
 message CreateAccountRequest {
