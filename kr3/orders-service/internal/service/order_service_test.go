@@ -36,6 +36,11 @@ func (m *mockStorage) UpdateStatus(ctx context.Context, orderID string, status m
 	return args.Error(0)
 }
 
+func (m *mockStorage) SaveOutboxMessage(ctx context.Context, topic string, key *string, payload string) error {
+	args := m.Called(ctx, topic, key, payload)
+	return args.Error(0)
+}
+
 type mockKafkaWriter struct {
 	mock.Mock
 }

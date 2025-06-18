@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/Babushkin05/software-dev-course/kr3/orders-service/internal/db"
 	"github.com/Babushkin05/software-dev-course/kr3/orders-service/internal/model"
-	"github.com/segmentio/kafka-go"
 )
 
 type OrderWriter interface {
@@ -13,16 +13,14 @@ type OrderWriter interface {
 }
 
 type Writer struct {
-	writer *kafka.Writer
+	storage db.OrderStorage
+	topic   string
 }
 
-func NewWriter(broker, topic string) *Writer {
+func NewWriter(storage db.OrderStorage, topic string) *Writer {
 	return &Writer{
-		writer: &kafka.Writer{
-			Addr:     kafka.TCP(broker),
-			Topic:    topic,
-			Balancer: &kafka.LeastBytes{},
-		},
+		storage: storage,
+		topic:   topic,
 	}
 }
 
@@ -32,8 +30,5 @@ func (w *Writer) WriteOrder(ctx context.Context, order *model.Order) error {
 		return err
 	}
 
-	return w.writer.WriteMessages(ctx, kafka.Message{
-		Key:   []byte(order.ID),
-		Value: msg,
-	})
+	return w.storage.SaveOutboxMessage(ctx, w.topic, &order.ID, string(msg))
 }

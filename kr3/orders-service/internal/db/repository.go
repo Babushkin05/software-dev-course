@@ -12,6 +12,9 @@ type OrderStorage interface {
 	GetByUser(ctx context.Context, userID string) ([]*model.Order, error)
 	GetByID(ctx context.Context, orderID string) (*model.Order, error)
 	UpdateStatus(ctx context.Context, orderID string, status model.OrderStatus) error
+
+	// outbox
+	SaveOutboxMessage(ctx context.Context, topic string, key *string, payload string) error
 }
 
 var _ OrderStorage = OrderRepository{}
