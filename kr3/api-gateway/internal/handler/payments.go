@@ -18,6 +18,17 @@ func (h *Handler) registerPaymentsRoutes(rg *gin.RouterGroup) {
 	}
 }
 
+// CreateAccount godoc
+// @Summary Создать платёжный аккаунт
+// @Description Создает аккаунт для пользователя по user_id
+// @Tags payments
+// @Accept json
+// @Produce json
+// @Param account body dto.CreateAccountRequest true "Данные пользователя"
+// @Success 201 {object} paymentspb.CreateAccountResponse
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /payments/account [post]
 func (h *Handler) CreateAccount(c *gin.Context) {
 	var req dto.CreateAccountRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -36,6 +47,17 @@ func (h *Handler) CreateAccount(c *gin.Context) {
 	c.JSON(http.StatusCreated, resp)
 }
 
+// Deposit godoc
+// @Summary Пополнить счёт
+// @Description Зачисляет средства на счет пользователя
+// @Tags payments
+// @Accept json
+// @Produce json
+// @Param deposit body dto.PaymentRequest true "Платёжные данные"
+// @Success 200 {object} paymentspb.BalanceResponse
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /payments/deposit [post]
 func (h *Handler) Deposit(c *gin.Context) {
 	var req dto.PaymentRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -55,6 +77,17 @@ func (h *Handler) Deposit(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
+// Withdraw godoc
+// @Summary Снять средства
+// @Description Списывает средства со счёта пользователя
+// @Tags payments
+// @Accept json
+// @Produce json
+// @Param withdraw body dto.PaymentRequest true "Платёжные данные"
+// @Success 200 {object} paymentspb.BalanceResponse
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /payments/withdraw [post]
 func (h *Handler) Withdraw(c *gin.Context) {
 	var req dto.PaymentRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -74,6 +107,16 @@ func (h *Handler) Withdraw(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
+// GetBalance godoc
+// @Summary Получить баланс
+// @Description Возвращает текущий баланс пользователя
+// @Tags payments
+// @Produce json
+// @Param user_id query string true "ID пользователя"
+// @Success 200 {object} paymentspb.BalanceResponse
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /payments/balance [get]
 func (h *Handler) GetBalance(c *gin.Context) {
 	userID := c.Query("user_id")
 	if userID == "" {

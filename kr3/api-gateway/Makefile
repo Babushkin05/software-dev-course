@@ -13,3 +13,6 @@ proto:
 
 clean:
 	rm -rf $(PROTO_DIR)/$(OUT_DIR)/*
+
+swagger:
+	swag init --dir cmd,internal/handler,internal/dto,api/gen/orders,api/gen/payments --output docs

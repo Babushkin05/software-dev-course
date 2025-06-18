@@ -17,7 +17,17 @@ func (h *Handler) registerOrdersRoutes(rg *gin.RouterGroup) {
 	}
 }
 
-// POST /api/orders
+// CreateOrder godoc
+// @Summary Создание заказа
+// @Description Создает новый заказ для пользователя
+// @Tags orders
+// @Accept json
+// @Produce json
+// @Param order body dto.CreateOrderRequest true "Данные для создания заказа"
+// @Success 201 {object} orderspb.OrderResponse
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /orders/ [post]
 func (h *Handler) CreateOrder(c *gin.Context) {
 	var req dto.CreateOrderRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -40,7 +50,16 @@ func (h *Handler) CreateOrder(c *gin.Context) {
 	c.JSON(http.StatusCreated, resp)
 }
 
-// GET /api/orders?user_id=123
+// GetOrders godoc
+// @Summary Получение заказов пользователя
+// @Description Возвращает список заказов по user_id
+// @Tags orders
+// @Produce json
+// @Param user_id query string true "ID пользователя"
+// @Success 200 {object} orderspb.OrdersList
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /orders/ [get]
 func (h *Handler) GetOrders(c *gin.Context) {
 	userID := c.Query("user_id")
 	if userID == "" {
@@ -61,7 +80,16 @@ func (h *Handler) GetOrders(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-// GET /api/orders/:id/status
+// GetOrderStatus godoc
+// @Summary Получение статуса заказа
+// @Description Возвращает статус заказа по его ID
+// @Tags orders
+// @Produce json
+// @Param id path string true "ID заказа"
+// @Success 200 {object} orderspb.OrderStatusResponse
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /orders/{id}/status [get]
 func (h *Handler) GetOrderStatus(c *gin.Context) {
 	orderID := c.Param("id")
 	if orderID == "" {
