@@ -11,7 +11,7 @@ RUN go mod download
 COPY . .
 
 # Собираем бинарник
-RUN CGO_ENABLED=0 GOOS=linux go build -o orders-service ./cmd/orders-service
+RUN CGO_ENABLED=0 GOOS=linux go build -o orders-service ./cmd/main.go
 
 # Этап исполнения
 FROM gcr.io/distroless/base-debian11
