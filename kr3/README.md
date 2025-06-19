@@ -44,7 +44,7 @@
 
 ## Важные отличия от требований
 
-В отличие от требований, мы реализовали:
+В отличие от требований, я реализовал:
 
 - В Orders Service: только **Transactional Outbox**
 - В Payments Service: как **Transactional Inbox**, так и **Transactional Outbox**
@@ -73,3 +73,4 @@
 - [Дизайн API Gateway](./api-gateway/design.md)
 - [Дизайн Orders Service](./orders-service/design.md)
 - [Дизайн Payments Service](./payments-service/design.md)
+
