@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package fileanalysis;
+option go_package = "github.com/Babushkin05/software-dev-course/kr2/analise-service/api/gen/fileanalysis;fileanalysispb";
+
+service FileAnalysisService {
+  rpc Analyze(AnalyzeRequest) returns (AnalyzeResponse);
+  rpc GetWordCloud(WordCloudRequest) returns (WordCloudResponse);
+}
+
+message AnalyzeRequest {
+  string file_id = 1;
+}
+
+message AnalyzeResponse {
+  string filename = 1;
+  bytes content = 2;
+}
+
+message WordCloudRequest {
+  string file_id = 1;
+}
+
+message WordCloudResponse {
+  string filename = 1;
+  bytes content = 2;
+}

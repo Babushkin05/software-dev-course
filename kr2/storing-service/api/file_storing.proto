@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package filestoring;
+
+option go_package = "github.com/Babushkin05/software-dev-course/kr2/storing-service/api/gen/filestoringpb;filestoringpb";
+
+service FileStoringService {
+  // Загружает текстовый файл и возвращает его ID
+  rpc Upload(UploadRequest) returns (UploadResponse);
+
+  // Возвращает файл по ID (для анализа или скачивания)
+  rpc Download(DownloadRequest) returns (DownloadResponse);
+}
+
+// ===== Upload =====
+
+message UploadRequest {
+  string filename = 1;     // имя файла 
+  bytes content = 2;       // содержимое файла
+}
+
+message UploadResponse {
+  string file_id = 1;
+}
+
+// ===== Download =====
+
+message DownloadRequest {
+  string file_id = 1;
+}
+
+message DownloadResponse {
+  string filename = 1;
+  bytes content = 2;
+}

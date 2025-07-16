@@ -1,0 +1,9 @@
+gen/
+*.pb.go
+*.pb.gw.go
+*.log
+*.db
+tmp/
+.env
+*.test
+coverage.out

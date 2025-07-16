@@ -1,0 +1,12 @@
+env: "local"
+
+grpc:
+  port: 44044
+  timeout: 10s
+
+http:
+  port: 8080
+
+services:
+  file_storing: "storing-service:50051"
+  file_analysis: "analise-service:50052"
