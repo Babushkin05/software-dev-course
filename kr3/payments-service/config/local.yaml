@@ -1,0 +1,11 @@
+grpc:
+  port: ":50051"
+
+postgres:
+  dsn: "postgres://user:password@payments-postgres:5432/payments?sslmode=disable"
+
+
+kafka:
+  broker: "localhost:9092"
+  topic: "order.created"
+  group_id: "payments-consumer"

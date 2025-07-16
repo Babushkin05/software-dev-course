@@ -1,0 +1,27 @@
+DROP TABLE IF EXISTS accounts CASCADE;
+DROP TABLE IF EXISTS inbox CASCADE;
+DROP TABLE IF EXISTS outbox CASCADE;
+
+CREATE TABLE accounts (
+    id UUID PRIMARY KEY,
+    user_id TEXT UNIQUE NOT NULL,
+    balance BIGINT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE inbox (
+    id SERIAL PRIMARY KEY,
+    message_id UUID NOT NULL,
+    topic TEXT NOT NULL,
+    payload JSONB NOT NULL,
+    processed BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT now()
+);
+
+CREATE TABLE outbox (
+    id UUID PRIMARY KEY,
+    topic TEXT NOT NULL,
+    payload TEXT NOT NULL,
+    sent BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT NOW()
+);

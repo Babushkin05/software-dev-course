@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package payments;
+
+option go_package = "github.com/Babushkin05/software-dev-course/kr3/api-gateway/api/gen/paymentspb";
+
+service PaymentsService {
+  rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
+  rpc Deposit(DepositRequest) returns (BalanceResponse);
+  rpc GetBalance(GetBalanceRequest) returns (BalanceResponse);
+  rpc Withdraw(WithdrawRequest) returns (BalanceResponse);
+}
+
+message CreateAccountRequest {
+  string user_id = 1;
+}
+
+message CreateAccountResponse {
+  string account_id = 1;
+}
+
+message DepositRequest {
+  string user_id = 1;
+  int64 amount = 2;
+}
+
+message GetBalanceRequest {
+  string user_id = 1;
+}
+
+message WithdrawRequest {
+  string user_id = 1;
+  int64 amount = 2;
+}
+
+message BalanceResponse {
+  int64 balance = 1;
+}
